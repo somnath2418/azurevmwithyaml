@@ -1,0 +1,73 @@
+name: Terraform Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select environment"
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+          -var="environment=${{ github.event.inputs.environment }}" \
+          -var="admin_password=${{ secrets.ADMIN_PASSWORD }}" \
+          -out=tfplan
+
+      - name: Terraform Apply (Dev/Stage)
+        if: github.event.inputs.environment != 'prod'
+        run: |
+          terraform apply -auto-approve tfplan
+
+      - name: Terraform Apply (Prod - Manual Approval)
+        if: github.event.inputs.environment == 'prod'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const requiredApprovers = ['somnath2418'];
+            const { owner, repo } = context;
+            const pr = context.payload.pull_request;
+            
+            core.notice('Prod deployment requires manual approval.');
+            core.notice('Review the terraform plan before proceeding.');
+
+      - name: Apply Prod
+        if: github.event.inputs.environment == 'prod'
+        run: |
+          terraform apply -auto-approve tfplan

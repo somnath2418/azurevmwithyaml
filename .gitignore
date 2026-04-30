@@ -1,0 +1,54 @@
+# ----------------------------
+# Terraform core files
+# ----------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ----------------------------
+# Terraform plan output
+# ----------------------------
+*.tfplan
+
+# ----------------------------
+# Sensitive variable files
+# ----------------------------
+*.tfvars
+*.tfvars.json
+
+# ----------------------------
+# YAML configs with secrets (optional)
+# ----------------------------
+config/*.yaml
+
+# If you WANT to keep YAML in repo, comment above line
+# and make sure no secrets inside YAML
+
+# ----------------------------
+# Environment files
+# ----------------------------
+.env
+
+# ----------------------------
+# CLI config
+# ----------------------------
+.terraformrc
+terraform.rc
+
+# ----------------------------
+# OS / Editor junk
+# ----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
