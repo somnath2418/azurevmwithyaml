@@ -1,6 +1,6 @@
 locals {
-  config = yamldecode(file("${path.module}/config/${var.environment}.yaml"))
-  tags   = yamldecode(file("${path.module}/config/tags.yaml")).tags
+  config = yamldecode(file("${path.root}/config/${var.environment}.yaml"))
+  tags   = yamldecode(file("${path.root}/config/tags.yaml")).tags
 }
 
 # Resource Group
