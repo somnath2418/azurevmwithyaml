@@ -37,21 +37,6 @@ resource "azurerm_windows_virtual_machine" "vm" {
     sku       = "2019-Datacenter"
     version   = "latest"
   }
-  /* resource "azurerm_managed_disk" "data_disk" {
-  name                = "${var.vm_name}-datadisk"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = var.data_disk_size_gb
 
   tags = var.tags
-}
-
-# Attach data disk to VM
-resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
-  managed_disk_id    = azurerm_managed_disk.data_disk.id
-  virtual_machine_id = azurerm_windows_virtual_machine.vm.id
-  lun                = 0
-  caching            = "ReadWrite" */
 }
