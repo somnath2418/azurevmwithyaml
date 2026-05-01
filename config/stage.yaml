@@ -1,0 +1,6 @@
+environment: stage
+location: Central India
+vm_size: Standard_D2s_v3
+address_space: "10.1.0.0/16"
+subnet_prefix: "10.1.1.0/24"
+vm_name: stage-vm

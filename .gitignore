@@ -24,7 +24,7 @@ override.tf.json
 # ----------------------------
 # YAML configs with secrets (optional)
 # ----------------------------
-config/*.yaml
+# config/*.yaml
 
 # If you WANT to keep YAML in repo, comment above line
 # and make sure no secrets inside YAML
