@@ -37,12 +37,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
     sku       = "2019-Datacenter"
     version   = "latest"
   }
-
-  tags = var.tags
-}
-
-# Data disk (E drive)
-resource "azurerm_managed_disk" "data_disk" {
+  /* resource "azurerm_managed_disk" "data_disk" {
   name                = "${var.vm_name}-datadisk"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -58,5 +53,5 @@ resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   managed_disk_id    = azurerm_managed_disk.data_disk.id
   virtual_machine_id = azurerm_windows_virtual_machine.vm.id
   lun                = 0
-  caching            = "ReadWrite"
+  caching            = "ReadWrite" */
 }
