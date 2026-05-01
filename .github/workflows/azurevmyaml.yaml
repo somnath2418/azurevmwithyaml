@@ -26,6 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug outputs.tf
+        run: cat modules/compute/outputs.tf
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
