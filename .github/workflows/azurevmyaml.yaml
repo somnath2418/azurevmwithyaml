@@ -27,7 +27,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Debug outputs.tf
-        run: cat modules/compute/outputs.tf
+        run: |
+          echo "===== FILE CONTENT ====="
+          cat modules/compute/outputs.tf || echo "File not found"
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
